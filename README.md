@@ -9,6 +9,14 @@ send it and reply with an audio file of that text message.
 
 The AWS API version is locked to `2016-06-10`.
 
+# Getting Started
+
+```sh
+$ git clone https://github.com/marcusmolchany/polly-telegram-bot.git
+$ cd polly-telegram-bot
+$ npm install
+```
+
 # Usage
 
 Once your bot is running it will respond to commands of the following two formats:
@@ -17,6 +25,14 @@ Once your bot is running it will respond to commands of the following two format
 2. A text message that starts with the slash command of the name of a Polly voice. For example: `/Nicole Hello there`.
 
 The list of supported AWS Polly voices is in [`voice-ids.js`](https://github.com/marcusmolchany/polly-telegram-bot/blob/master/voice-ids.js).
+
+## Sample Commands
+```
+"The arsonist had oddly shaped feet."
+"/Nicole hello there."
+"/Brian good morning."
+"/Celine quoi de neuf?"
+```
 
 # Setup
 
@@ -32,7 +48,7 @@ Instead of cloning lesterchan's repository you will use this one for the code in
 function.
 
 You will need to use this command from his setup to generate a zip file of your project to upload
-to your AWS Lambda function:
+to your AWS Lambda function (the generated file is git ignored):
 ```sh
 $ zip -r telegram-bot.zip *.js node_modules/*
 ```
@@ -40,7 +56,7 @@ $ zip -r telegram-bot.zip *.js node_modules/*
 ## Telegram - Bot Token
 
 Copy `token.sample.js` into `token.js`. Copy the Telegram bot token given to you by BotFather and
-replace the text `YOURTELEGRAMBOTTOKEN` with your bot token.
+replace the text `YOURTELEGRAMBOTTOKEN` with your bot token. `token.js` is git ignored.
 
 ```sh
 $ cp token.sample.js token.js
@@ -51,7 +67,7 @@ $ cp token.sample.js token.js
 Configure access keys following [this guide](https://aws.amazon.com/developers/access-keys/).
 You will need the access keys `AmazonS3FullAccess` and `AmazonPollyFullAccess` set for your user.
 Copy `creds.sample.js` into `creds.js` and store your `accessKeyId` and `secretAccessKey` into
-the `credentials` object.
+the `credentials` object. `creds.js` is git ignored.
 
 Set your `region` to whichever region your lambda function is running from.
 
