@@ -2,6 +2,7 @@ var AWS = require('aws-sdk');
 var TelegramBot = require('node-telegram-bot-api');
 var request = require('request');
 
+var constants = require('./constants.js');
 var creds = require('./creds.js');
 var token = require('./token.js');
 var voiceIds = require('./voice-ids.js');
@@ -59,7 +60,7 @@ exports.handler = (event, context) => {
     }
 
     var uploadParams = {
-      Bucket: 'pollybot',
+      Bucket: constants.s3.bucketName,
       Key: 'file-' + Date.now() + '.mp3',
       ACL: 'public-read',
       Body: data.AudioStream,

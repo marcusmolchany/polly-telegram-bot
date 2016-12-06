@@ -75,6 +75,19 @@ Set your `region` to whichever region your lambda function is running from.
 $ cp creds.sample.js creds.js
 ```
 
+## AWS - Constants
+
+Navigate to [S3 in the AWS Console](https://console.aws.amazon.com/s3/), make sure you're in the
+same region as where you created your Lambda function. Create a new bucket to store your generated
+Polly files.
+
+Copy `constants.sample.js` into `constants.js`. Change the value of `s3.bucketName` to the name
+of your S3 bucket.
+
+```sh
+$ cp constants.sample.js constants.js
+```
+
 # Resources
 ### AWS
 https://github.com/aws/aws-sdk-js

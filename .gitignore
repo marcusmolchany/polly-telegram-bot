@@ -1,7 +1,8 @@
 node_modules
 
-token.js
+constants.js
 creds.js
+token.js
 
 *.zip
 
