@@ -1,0 +1,16 @@
+{
+  "name": "polly-telegram-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot that takes text and converts it to an audio file using AWS Polly",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "marcusmolchany",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.7.10",
+    "node-telegram-bot-api": "^0.24.0",
+    "request": "^2.79.0"
+  }
+}
