@@ -1,20 +1,20 @@
-var AWS = require('aws-sdk');
-var TelegramBot = require('node-telegram-bot-api');
-var request = require('request');
+const AWS = require('aws-sdk');
+const TelegramBot = require('node-telegram-bot-api');
+const request = require('request');
 
-var constants = require('./constants.js');
-var creds = require('./creds.js');
-var token = require('./token.js');
-var voiceIds = require('./voice-ids.js');
+const constants = require('./constants.js');
+const creds = require('./creds.js');
+const token = require('./token.js');
+const voiceIds = require('./voice-ids.js');
 
-var CHAR_LIMIT = constants.polly.CHAR_LIMIT;
-var bot = new TelegramBot(token);
+const CHAR_LIMIT = constants.polly.CHAR_LIMIT;
+const bot = new TelegramBot(token);
 
 AWS.config = new AWS.Config(creds);
 
 // lock api version to 2016-06-10
-var s3 = new AWS.S3({ apiVersion: '2016-06-10' });
-var polly = new AWS.Polly({ apiVersion: '2016-06-10' });
+const s3 = new AWS.S3({ apiVersion: '2016-06-10' });
+const polly = new AWS.Polly({ apiVersion: '2016-06-10' });
 
 
 exports.handler = (event, context, callback) => {
@@ -51,7 +51,7 @@ exports.handler = (event, context, callback) => {
     return callback(`message exceeded ${CHAR_LIMIT} characters`);
   }
 
-  var pollyParams = {
+  const pollyParams = {
     // OutputFormat: 'ogg_vorbis', todo: convert ogg vorbis to ogg opus so .sendVoice() will work
     OutputFormat: 'mp3',
     Text: message,
@@ -67,7 +67,7 @@ exports.handler = (event, context, callback) => {
       bot.sendMessage(chatId, 'error with polly synthesizeSpeech.');
     }
 
-    var uploadParams = {
+    const uploadParams = {
       Bucket: constants.s3.bucketName,
       Key: 'file-' + Date.now() + '.mp3',
       ACL: 'public-read',
@@ -83,7 +83,7 @@ exports.handler = (event, context, callback) => {
         bot.sendMessage(chatId, err);
       } else if (data) {
         callback('s3 upload success', data);
-        var audio = request(data.Location);
+        const audio = request(data.Location);
         bot.sendChatAction(chatId, 'upload_audio');
         bot.sendAudio(chatId, audio);
       }
