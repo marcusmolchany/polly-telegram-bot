@@ -46,6 +46,7 @@ exports.handler = (event, context, callback) => {
   }
 
   if (message.length > CHAR_LIMIT) {
+    bot.sendChatAction(chatId, 'typing');
     bot.sendMessage(chatId, `message must have less than ${CHAR_LIMIT} characters.`);
     return callback(`message exceeded ${CHAR_LIMIT} characters`);
   }
@@ -62,6 +63,7 @@ exports.handler = (event, context, callback) => {
 
   polly.synthesizeSpeech(pollyParams, (err, data) => {
     if (err) {
+      bot.sendChatAction(chatId, 'typing');
       bot.sendMessage(chatId, 'error with polly synthesizeSpeech.');
     }
 
@@ -77,6 +79,7 @@ exports.handler = (event, context, callback) => {
     s3.upload(uploadParams, (err, data) => {
       if (err) {
         console.log('s3 upload error', err);
+        bot.sendChatAction(chatId, 'typing');
         bot.sendMessage(chatId, err);
       } else if (data) {
         console.log('s3 upload success', data);
