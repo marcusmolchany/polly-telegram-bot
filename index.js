@@ -7,6 +7,7 @@ var creds = require('./creds.js');
 var token = require('./token.js');
 var voiceIds = require('./voice-ids.js');
 
+var CHAR_LIMIT = constants.polly.CHAR_LIMIT;
 var bot = new TelegramBot(token);
 
 AWS.config = new AWS.Config(creds);
@@ -16,7 +17,7 @@ var s3 = new AWS.S3({ apiVersion: '2016-06-10' });
 var polly = new AWS.Polly({ apiVersion: '2016-06-10' });
 
 
-exports.handler = (event, context) => {
+exports.handler = (event, context, callback) => {
   var chatId = null;
   var message = '';
   var firstWord = '';
@@ -42,6 +43,11 @@ exports.handler = (event, context) => {
   if (voiceIds.indexOf(firstWord) !== -1) {
     voiceId = firstWord;
     message = message.split(' ').slice(1).join(' '); // remove first word from message
+  }
+
+  if (message.length > CHAR_LIMIT) {
+    bot.sendMessage(chatId, `message must have less than ${CHAR_LIMIT} characters.`);
+    return callback(`message exceeded ${CHAR_LIMIT} characters`);
   }
 
   var pollyParams = {
