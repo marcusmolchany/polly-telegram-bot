@@ -78,11 +78,11 @@ exports.handler = (event, context, callback) => {
     // call S3 to retrieve upload file to specified bucket
     s3.upload(uploadParams, (err, data) => {
       if (err) {
-        console.log('s3 upload error', err);
+        callback('s3 upload error', err);
         bot.sendChatAction(chatId, 'typing');
         bot.sendMessage(chatId, err);
       } else if (data) {
-        console.log('s3 upload success', data);
+        callback('s3 upload success', data);
         var audio = request(data.Location);
         bot.sendChatAction(chatId, 'upload_audio');
         bot.sendAudio(chatId, audio);
