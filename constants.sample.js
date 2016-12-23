@@ -1,3 +1,5 @@
 module.exports = {
-  s3BucketName: 'YOUR-S3-BUCKET-FOR-POLLY-FILES'
+  s3: {
+    bucketName: 'YOUR-S3-BUCKET-FOR-POLLY-FILES'
+  }
 }
